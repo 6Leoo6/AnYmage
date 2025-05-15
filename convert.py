@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 
 
-def convert_to_image(input_path, output_path, reverse):
+def convert_to_image(input_path, output_path, reverse=False):
 
     if not reverse:
         with open(input_path, 'rb') as f:
