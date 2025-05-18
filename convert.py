@@ -21,9 +21,6 @@ def convert_to_image(input_path, output_path=None, reverse=False):
 
         number_of_useful_pixels = math.ceil(number_of_bytes / 3)
 
-
-
-
         smallest_image_dim = math.ceil(math.sqrt(
             number_of_useful_pixels
         ))
@@ -56,7 +53,13 @@ def convert_to_image(input_path, output_path=None, reverse=False):
 
         file_bytes = image_bytes[:-filler_length - 3]
 
-        with open(output_path, 'wb') as f:
+        filename_length = int.from_bytes(file_bytes[-3:])
+        filename_bytes = file_bytes[-filename_length-3:-3]
+        filename = filename_bytes.decode("utf-8")
+
+        file_bytes = file_bytes[:-filename_length-3]
+
+        with open(output_path or filename, 'wb') as f:
             f.write(file_bytes)
 
 if __name__ == '__main__':
